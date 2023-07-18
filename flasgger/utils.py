@@ -80,6 +80,9 @@ def get_specs(rules, ignore_verbs, optional_fields, sanitizer,
     specs = []
     for rule in rules:
         endpoint = current_app.view_functions[rule.endpoint]
+        if type(endpoint).__name__ == 'LazyView':
+            endpoint = endpoint.view
+
         methods = dict()
         is_mv = is_valid_method_view(endpoint)
 
